@@ -11,18 +11,19 @@ var url= "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geo
 var plates_url = "https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json"
 
 // Adding tile layer
+//streetmap
 var streetmap = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
     maxZoom: 18,
     id: 'mapbox.streets',
     accessToken: apikey}).addTo(myMap);
-
+//satellite map
 var satellite = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
     maxZoom: 18,
     id: 'mapbox.satellite',
     accessToken: apikey}).addTo(myMap);
-
+//lightscale map
 var lightscale = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token={accessToken}", {accessToken: apikey}).addTo(myMap);
 
 // Creating a geoJSON layer with the retrieved data
@@ -60,12 +61,12 @@ d3.json(url, function(data){
     }
 
     function getColor(magnitude) {
-        return magnitude > 5  ? '#800026' :
-        magnitude > 4  ? '#BD0026' :
-        magnitude > 3  ? '#E31A1C' :
-        magnitude > 2  ? '#FC4E2A' :
-        magnitude > 1  ? '#FD8D3C' :
-        magnitude > 0  ? '#FEB24C' :'#FFEDA0';
+        return magnitude > 5  ? '#B71C1C' :
+        magnitude > 4  ? '#F4511E' :
+        magnitude > 3  ? '#FB8C00' :
+        magnitude > 2  ? '#FFCC80' :
+        magnitude > 1  ? '#FFEB3B' :
+        magnitude > 0  ? '#4CAF50' :'#4CAF50';
     }
 
     function getRadius(magnitude) {  
@@ -107,7 +108,7 @@ d3.json(url, function(data){
         var div = L.DomUtil.create('div', 'info legend');
             categories = [0, 1, 2, 3, 4, 5]
             labels = [];
-        for (var i = 0; i < categories.length; i++) {
+           for (var i = 0; i < categories.length; i++) {
             div.innerHTML +=
             '<i style="background:' + getColor(categories[i] + 1) + '"></i> ' +
             categories[i] + (categories[i + 1] ? '&ndash;' + categories[i + 1] + '<br>' : '+');
